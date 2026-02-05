@@ -1,92 +1,204 @@
-# A Comprehensive Secret Scanning Automation-Tool
+☠️ RahasyaScan
 
-[![Docker Image Version (tag)](https://img.shields.io/docker/v/raikaustubh/rahasya/latest?logo=docker)](https://hub.docker.com/r/raikaustubh/rahasya)
+RahasyaScan is an all-in-one DevSecOps security scanning toolkit designed to automatically detect hardcoded secrets, exposed credentials, and vulnerable dependencies across source code repositories.
 
-Securing your codebase with various tools for secret scanning
+Built for local use, Docker, and CI/CD pipelines, RahasyaScan unifies multiple industry-trusted security tools into a single, automated, developer-friendly scanner.
 
-## Table of Contents
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Flags](#flags)
-- [Customization](#customization)
-- [Requirements](#requirements)
-- [Contribution Guidelines](#contribution-guidelines)
-- [License](#license)
-- [Troubleshooting](#troubleshooting)
-- [FAQs](#faqs)
-- [Credits](#credits)
+“If it’s exposed — it’s already compromised.”
 
-## Features
-- GitLeaks (https://github.com/gitleaks/gitleaks)
-- Gitty Leaks (https://github.com/kootenpv/gittyleaks)
-- TruffleHog (https://github.com/trufflesecurity/trufflehog)
-- Detect Secrets (https://github.com/Yelp/detect-secrets)
-- Git Guardian (Requires API Key). (https://github.com/GitGuardian/ggshield)
-- Talisman (https://github.com/thoughtworks/talisman)
+🔍 What RahasyaScan Solves
+
+Modern codebases often suffer from:
+
+Hardcoded API keys & secrets
+
+Leaked credentials in Git history
+
+Vulnerable open-source dependencies
+
+Missing security visibility in CI/CD
+
+RahasyaScan addresses this by combining Secrets Detection + Software Composition Analysis (SCA) into a single execution flow.
+
+⚙️ Requirements
+Local System
+
+Docker ≥ 20.x
+
+Git
+
+Internet access (for tool updates & Snyk)
+
+Supported Platforms
+
+Linux
+
+macOS
+
+Windows (via Docker Desktop)
+
+❗ No language runtime needed on host — everything runs inside Docker.
+
+🚀 Features (In-Depth)
+🔐 Secrets Detection
+
+RahasyaScan integrates multiple scanners to minimize false negatives:
+
+Tool	Purpose
+Gitleaks	Detects secrets in Git history and working tree
+GittyLeaks	Pattern-based secret discovery
+TruffleHog	Entropy-based secret scanning
+Detect-Secrets	Yelp’s high-confidence secret scanner
+GitGuardian (ggshield)	Enterprise-grade secret detection
+Talisman	Git hook-style deep secret scanning with HTML report
+📦 Dependency Vulnerability Scanning (SCA)
+
+Snyk scans:
+
+All supported package managers
+
+Multiple languages in monorepos
+
+Known CVEs with severity filtering
+
+Token is securely requested at runtime
+
+No credentials are stored permanently
+
+📊 Unified Results Output
+
+All scan outputs are saved to:
+
+/repo/Secret_Detection_Reports/
 
 
-## Installation
+Easy integration with:
 
-```
-docker pull raikaustubh/rahasya
-```
+CI artifacts
 
-## Usage
+SIEM tools
 
-Go in the git cloned directory and run
+Security dashboards
 
-```
-docker run -it --rm -v "$(PWD):/repo" raikaustubh/rahasya
-```
-<img width="1111" alt="image" src="https://github.com/KaustubhRai/rahasya/assets/28558847/f7728a0b-c3e6-447a-a284-a80cc9e88e5a">
+🧠 DevSecOps-Ready Design
 
-## Flags
+Containerized
 
-- `-scan`: Run GitLeaks, Gitty Leaks, TruffleHog, Detect Secrets all in succession one after the other, and Git Guardian too, if you have the API Key available in the dockerfile.
+Non-intrusive
 
-- `-include_talisman`: Run Talisman separately from all the other tools. This flag will run Talisman and format that report in a presentable format that can be viewed in the browser.
+CI/CD friendly
 
-- `-help`: All the tools will only run properly if the repo is git cloned. Use this flag if you need guidance on how to proceed.
+Shift-Left security aligned
 
-- `-scan [tool 1] [tool 2] ...`: Selectively run specified scanning tools. List the tools you want to execute, separated by spaces. Supported tools include `gitleaks`, `gittyleaks`, `trufflehog`, `detect-secrets`, and `gggshield`. If `gitguardian` or `gggshield` is specified, ensure you have provided the API key in the Dockerfile. Use this flag to customize the scan to your specific needs. For example, to run GitLeaks and TruffleHog, use `-scan gitleaks trufflehog`.
+📥 Installation
+1️⃣ Pull from Docker Hub
+docker pull aniketkasturi/rahasyascan
 
-## Customization
 
-To incorporate your Git Guardian API key or to modify any tool versions:
+OR build locally:
 
-1. **Clone the repository:**
-```bash
-   git clone https://github.com/KaustubhRai/rahasya.git
-```
-2. **Edit the Dockerfile:**
-   Add your API key in `ENV GGSHIELD_TOKEN` or adjust the tool versions as necessary.
-3. **Build your custom Docker image:**
-   ```bash
-   docker build -t rahasya .
-   ```
-4. **Run that modified image:**
-   ```bash
-   docker run -it --rm -v "$(PWD):/repo" rahasya
-   ```
-## Requirements
+docker build -t rahasyascan .
 
- - Docker version 4.20.1 or higher
- - Compatible with Linux, macOS, Windows
+🛠 Usage
+1️⃣ Clone the target repository
+git clone https://github.com/target/repo.git
 
-## Contribution Guidelines
-Contributions are welcome! Please submit a pull request or open an issue to discuss proposed changes.
+2️⃣ Run RahasyaScan
+docker run -it \
+  -v $(pwd)/repo:/repo \
+  rahasyascan
 
-## License
-This project is licensed under the GNU GENERAL PUBLIC LICENSE - see the LICENSE.md file for details.
 
-## Troubleshooting
-If you encounter issues with Docker permissions, ensure your user is added to the Docker group or try running with `sudo`.
+⚠️ The repository must be mounted at /repo
 
-## FAQs
-> **Q: Can I use this tool without Docker?**
->
-> **A:** Currently, Docker is required for running this tool efficiently.
+🏁 Flags & Commands
 
-## Credits
-Developed by Kaustubh Rai. Thanks to all the developers of the tools integrated into this project.
+When prompted inside the container:
+
+🔎 Scan Specific Tools
+-scan gitleaks trufflehog snyk
+
+🔍 Full Secrets Scan
+-scan gitleaks gittyleaks trufflehog detect-secrets ggshield talisman
+
+📦 Dependency Scan Only
+-scan snyk
+
+🧪 Mixed Scan
+-scan gitleaks snyk trufflehog
+
+🧷 Available Tools
+Flag	Tool
+gitleaks	Git history secret scanning
+gittyleaks	Pattern-based detection
+trufflehog	Entropy detection
+detect-secrets	Yelp secrets detection
+ggshield	GitGuardian scanning
+talisman	Pre-commit style scanning
+snyk	Dependency vulnerability scanning
+🔑 Snyk Authentication Flow
+
+Token is never hardcoded
+
+Requested securely during runtime:
+
+Enter your Snyk API Token:
+
+
+Token is:
+
+Used temporarily
+
+Logged out after scan
+
+Unset from environment
+
+🎨 Customization
+Add/Remove Tools
+
+Edit /app/entrypoint.sh:
+
+Add new scanners
+
+Disable unused ones
+
+Ignore Paths (TruffleHog)
+
+Edit:
+
+/trufflehog_exclude.txt
+
+CI/CD Integration
+
+RahasyaScan is designed for:
+
+GitHub Actions
+
+GitLab CI
+
+Jenkins
+
+Azure DevOps
+
+Example (GitHub Actions):
+
+- name: Run RahasyaScan
+  run: |
+    docker run -v ${{ github.workspace }}:/repo aniketkasturi/rahasyascan
+
+🛡 Security Philosophy
+
+No secrets stored
+
+No background services
+
+No outbound telemetry
+
+Fully transparent execution
+
+👤 Author
+
+Aniket Kasturi
+DevSecOps | Cloud Security | Offensive Security
+
+“Security is not a feature — it’s a mindset.”
