@@ -1,10 +1,6 @@
+<img width="1314" height="186" alt="image" src="https://github.com/user-attachments/assets/03c812a3-579f-49a5-9823-2efaec055ad2" />
+<img width="1314" height="186" alt="image" src="https://github.com/user-attachments/assets/03c812a3-579f-49a5-9823-2efaec055ad2" />
 
-██████╗  █████╗ ██╗  ██╗ █████╗ ███████╗██╗   ██╗ █████╗ ███████╗ ██████╗ █████╗ ███╗   ██╗
-██╔══██╗██╔══██╗██║  ██║██╔══██╗██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔════╝██╔══██╗████╗  ██║
-██████╔╝███████║███████║███████║███████╗ ╚████╔╝ ███████║███████╗██║     ███████║██╔██╗ ██║
-██╔══██╗██╔══██║██╔══██║██╔══██║╚════██║  ╚██╔╝  ██╔══██║╚════██║██║     ██╔══██║██║╚██╗██║
-██║  ██║██║  ██║██║  ██║██║  ██║███████║   ██║   ██║  ██║███████║╚██████╗██║  ██║██║ ╚████║
-╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
 
 RahasyaScan is an all-in-one DevSecOps security scanning toolkit designed to automatically detect hardcoded secrets, exposed credentials, and vulnerable dependencies across source code repositories.
 
