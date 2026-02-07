@@ -25,7 +25,7 @@ jobs:
       # -------------------- PULL IMAGE --------------------
       - name: Pull RahasyaScan Docker Image
         run: |
-          docker pull aniketkasturi/rahasyascan:latest
+          docker pull aniket2003/rahasyascan:v1.0.0
 
       # -------------------- RUN SCAN --------------------
       - name: Run RahasyaScan
