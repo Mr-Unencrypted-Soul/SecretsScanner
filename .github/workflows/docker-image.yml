@@ -25,7 +25,7 @@ jobs:
       # -------------------- PULL IMAGE --------------------
       - name: Pull RahasyaScan Docker Image
         run: |
-          docker pull aniket2003/rahasyascan:v1.0.0
+          docker pull --platform linux/amd64 aniket2003/rahasyascan:v1.0.0
 
       # -------------------- RUN SCAN --------------------
       - name: Run RahasyaScan
@@ -33,14 +33,12 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           GGSHIELD_TOKEN: ${{ secrets.GGSHIELD_TOKEN }}
         run: |
-          docker run --rm \
+          docker run --rm --platform linux/amd64 \
             -e SNYK_TOKEN \
             -e GGSHIELD_TOKEN \
             -v ${{ github.workspace }}:/repo \
             aniket2003/rahasyascan:v1.0.0 \
-            <<EOF
-          -scan gitleaks gittyleaks trufflehog detect-secrets snyk
-          EOF
+            -scan gitleaks gittyleaks trufflehog detect-secrets snyk
 
       # -------------------- UPLOAD RESULTS --------------------
       - name: Upload Security Reports
