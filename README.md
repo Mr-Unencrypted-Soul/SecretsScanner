@@ -335,15 +335,13 @@ _Easy integration with:_
 https://docs.docker.com/get-docker/
 
 2️⃣ Pull RahasyaScan from Docker Hub
-docker pull aniket2003/rahasyascan:v1.0.0
+docker pull aniket2003/rahasyascan:latest
 
 ▶️ Running RahasyaScan (Local Scan)
 
 Navigate to your project repository and run:
 
-docker run -it \
-  -v "$(pwd)":/repo \
-  aniket2003/rahasyascan:v1.0.0
+docker run --rm -it -v "$(pwd)":/repo aniket2003/rahasyascan:latest
 
 
 📌 This mounts your repository inside the container securely.
