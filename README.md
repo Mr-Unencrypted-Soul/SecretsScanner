@@ -1,4 +1,4 @@
-☠️ RahasyaScan
+**_☠️ RahasyaScan_**
 
 RahasyaScan is an all-in-one DevSecOps security scanning toolkit designed to automatically detect hardcoded secrets, exposed credentials, and vulnerable dependencies across source code repositories.
 
@@ -6,21 +6,21 @@ Built for local use, Docker, and CI/CD pipelines, RahasyaScan unifies multiple i
 
 “If it’s exposed — it’s already compromised.”
 
-🔍 What RahasyaScan Solves
+**_🔍 What RahasyaScan Solves_**
 
-Modern codebases often suffer from:
+ - Modern codebases often suffer from:
 
-Hardcoded API keys & secrets
+ - Hardcoded API keys & secrets
 
-Leaked credentials in Git history
+ - Leaked credentials in Git history
 
-Vulnerable open-source dependencies
+ - Vulnerable open-source dependencies
 
-Missing security visibility in CI/CD
+ - Missing security visibility in CI/CD
 
 RahasyaScan addresses this by combining Secrets Detection + Software Composition Analysis (SCA) into a single execution flow.
 
-⚙️ Requirements
+**⚙️ Requirements**
 Local System
 
 Docker ≥ 20.x
@@ -35,11 +35,11 @@ Linux
 
 macOS
 
-Windows (via Docker Desktop)
+**Windows **(via Docker Desktop)
 
 ❗ No language runtime needed on host — everything runs inside Docker.
 
-🚀 Features (In-Depth)
+**_🚀 Features (In-Depth)_**
 🔐 Secrets Detection
 
 RahasyaScan integrates multiple scanners to minimize false negatives:
@@ -55,77 +55,82 @@ Talisman	Git hook-style deep secret scanning with HTML report
 
 Snyk scans:
 
-All supported package managers
+ - All supported package managers
 
-Multiple languages in monorepos
+ - Multiple languages in monorepos
 
-Known CVEs with severity filtering
+ - Known CVEs with severity filtering
 
-Token is securely requested at runtime
+ - Token is securely requested at runtime
 
-No credentials are stored permanently
+ - No credentials are stored permanently
+ 
 
-📊 Unified Results Output
+**_📊 Unified Results Output_**
 
-All scan outputs are saved to:
-
-/repo/Secret_Detection_Reports/
+ - All scan outputs are saved to: /repo/Secret_Detection_Reports/
 
 
-Easy integration with:
 
-CI artifacts
 
-SIEM tools
+_Easy integration with:_
 
-Security dashboards
+ - CI artifacts
+
+ - SIEM tools
+
+ - Security dashboards
+ 
 
 🧠 DevSecOps-Ready Design
 
-Containerized
+ - Containerized
 
-Non-intrusive
+ - Non-intrusive
 
-CI/CD friendly
+ - CI/CD friendly
 
-Shift-Left security aligned
-
-📥 Installation
-1️⃣ Pull from Docker Hub
-docker pull aniketkasturi/rahasyascan
+ - Shift-Left security aligned
 
 
-OR build locally:
+**_📥 Installation_**
 
-docker build -t rahasyascan .
+ 
+1️⃣ Installation 🐳 (Docker-Based — No Local Setup Pain)
+https://docs.docker.com/get-docker/
 
-🛠 Usage
-1️⃣ Clone the target repository
-git clone https://github.com/target/repo.git
+2️⃣ Pull RahasyaScan from Docker Hub
+docker pull aniket2003/rahasyascan:v1.0.0
 
-2️⃣ Run RahasyaScan
+▶️ Running RahasyaScan (Local Scan)
+
+Navigate to your project repository and run:
+
 docker run -it \
-  -v $(pwd)/repo:/repo \
-  rahasyascan
+  -v "$(pwd)":/repo \
+  aniket2003/rahasyascan:v1.0.0
 
 
-⚠️ The repository must be mounted at /repo
+📌 This mounts your repository inside the container securely.
 
-🏁 Flags & Commands
+🧩 Available Scan Options
 
-When prompted inside the container:
+Once the tool starts, you’ll be prompted to choose scans.
 
-🔎 Scan Specific Tools
--scan gitleaks trufflehog snyk
+  🔹 Run all secret-scanning tools
+     -scan
 
-🔍 Full Secrets Scan
--scan gitleaks gittyleaks trufflehog detect-secrets ggshield talisman
+  🔹 Run specific tools
+    -scan gitleaks trufflehog ggshield
 
-📦 Dependency Scan Only
--scan snyk
+  🔹 Run dependency scanning (Snyk)
+    -scan snyk
 
-🧪 Mixed Scan
--scan gitleaks snyk trufflehog
+
+🔐 You’ll be securely prompted to enter your Snyk API token at runtime.
+
+🔹 Include Talisman (pre-commit & repo scan)
+-include_talisman
 
 🧷 Available Tools
 Flag	Tool
@@ -136,49 +141,50 @@ detect-secrets	Yelp secrets detection
 ggshield	GitGuardian scanning
 talisman	Pre-commit style scanning
 snyk	Dependency vulnerability scanning
+
 🔑 Snyk Authentication Flow
 
-Token is never hardcoded
+  🔹Tokens are never hardcoded
 
-Requested securely during runtime:
+  🔹Requested securely during runtime:
 
-Enter your Snyk API Token:
+  🔹Enter your Snyk API Token:
 
 
 Token is:
 
-Used temporarily
+  🔹Used temporarily
 
-Logged out after scan
+  🔹Logged out after scan
 
-Unset from environment
+  🔹Unset from environment
 
 🎨 Customization
-Add/Remove Tools
+  🔹Add/Remove Tools
 
-Edit /app/entrypoint.sh:
+  🔹Edit /app/entrypoint.sh:
 
-Add new scanners
+  🔹Add new scanners
 
-Disable unused ones
+  🔹Disable unused ones
 
-Ignore Paths (TruffleHog)
+  🔹Ignore Paths (TruffleHog)
 
-Edit:
+  🔹Edit:/trufflehog_exclude.txt
 
-/trufflehog_exclude.txt
+  
 
-CI/CD Integration
+**_CI/CD Integration_**
 
 RahasyaScan is designed for:
 
-GitHub Actions
+  🔹GitHub Actions
 
-GitLab CI
+  🔹GitLab CI
 
-Jenkins
+  🔹Jenkins
 
-Azure DevOps
+  🔹Azure DevOps
 
 Example (GitHub Actions):
 
@@ -186,19 +192,20 @@ Example (GitHub Actions):
   run: |
     docker run -v ${{ github.workspace }}:/repo aniketkasturi/rahasyascan
 
-🛡 Security Philosophy
 
-No secrets stored
+**_🛡 Security Philosophy_**
 
-No background services
+  🔹No secrets stored
 
-No outbound telemetry
+  🔹No background services
 
-Fully transparent execution
+  🔹No outbound telemetry
 
-👤 Author
+  🔹Fully transparent execution
+
+**👤 Author**
 
 Aniket Kasturi
-DevSecOps | Cloud Security | Offensive Security
+Penetration Testing | Cloud Security | Offensive Security | DevSecOps
 
 “Security is not a feature — it’s a mindset.”
