@@ -194,6 +194,26 @@ Example (GitHub Actions):
   run: |
     docker run -v ${{ github.workspace }}:/repo aniketkasturi/rahasyascan
 
+📦 What This Pipeline Does
+On every push / PR
+
+🔍 Secrets Scanning
+
+Gitleaks,GittyLeaks,TruffleHog,Detect-Secrets
+
+
+🧩 Dependency Scanning
+
+Snyk (multi-language, all manifests)
+
+
+📁 Artifacts
+
+Unified reports uploaded for Security Team
+
+
+🧠 Shift-Left Security - Vulnerabilities caught before merge
+
 
 **_🛡 Security Philosophy_**
 
