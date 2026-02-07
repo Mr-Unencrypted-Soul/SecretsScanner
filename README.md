@@ -423,7 +423,7 @@ Example (GitHub Actions):
 
 - name: Run RahasyaScan
   run: |
-    docker run -v ${{ github.workspace }}:/repo aniketkasturi/rahasyascan
+    docker run -v ${{ github.workspace }}:/repo aniket2003/rahasyascan:latest
 
 📦 What This Pipeline Does
 On every push / PR
