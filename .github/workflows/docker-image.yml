@@ -1,51 +1,52 @@
-name: Docker Image CI
+name: RahasyaScan – DevSecOps Security Pipeline
 
 on:
   push:
-    branches: [ "main" ]
-    paths:
-      - 'Dockerfile'
-      - 'VERSION'
+    branches: [ "*" ]
   pull_request:
-    branches: [ "main" ]
-    paths:
-      - 'Dockerfile'
-      - 'VERSION'
+    branches: [ "*" ]
+
+permissions:
+  contents: read
+  security-events: write
 
 jobs:
-  build-and-push:
+  rahasyascan:
+    name: Secrets & Dependency Scan
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      # -------------------- CHECKOUT --------------------
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Read the version
-      id: version
-      run: echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
+      # -------------------- PULL IMAGE --------------------
+      - name: Pull RahasyaScan Docker Image
+        run: |
+          docker pull aniketkasturi/rahasyascan:latest
 
-    # 1) Set up or update QEMU to emulate ARM64 more reliably
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
-      with:
-        image: tonistiigi/binfmt:latest
-        platforms: all
+      # -------------------- RUN SCAN --------------------
+      - name: Run RahasyaScan
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          GGSHIELD_TOKEN: ${{ secrets.GGSHIELD_TOKEN }}
+        run: |
+          docker run --rm \
+            -e SNYK_TOKEN \
+            -e GGSHIELD_TOKEN \
+            -v ${{ github.workspace }}:/repo \
+            aniketkasturi/rahasyascan \
+            <<EOF
+          -scan gitleaks gittyleaks trufflehog detect-secrets snyk
+          EOF
 
-    # 2) Set up Docker Buildx
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
-    # 3) Log in to Docker Hub
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-    - name: Build and push multi arch image
-      run: |
-        docker buildx build \
-          --platform linux/amd64,linux/arm64 \
-          --push \
-          --tag raikaustubh/rahasya:${{ env.VERSION }} \
-          --tag raikaustubh/rahasya:latest \
-          .
+      # -------------------- UPLOAD RESULTS --------------------
+      - name: Upload Security Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: RahasyaScan-Reports
+          path: |
+            Secret_Detection_Reports/
+          retention-days: 14
