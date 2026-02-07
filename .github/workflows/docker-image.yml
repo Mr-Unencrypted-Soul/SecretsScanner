@@ -37,7 +37,7 @@ jobs:
             -e SNYK_TOKEN \
             -e GGSHIELD_TOKEN \
             -v ${{ github.workspace }}:/repo \
-            aniketkasturi/rahasyascan \
+            aniket2003/rahasyascan:v1.0.0 \
             <<EOF
           -scan gitleaks gittyleaks trufflehog detect-secrets snyk
           EOF
