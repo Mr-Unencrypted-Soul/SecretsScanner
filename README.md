@@ -10,7 +10,7 @@ Built for local use, Docker, and CI/CD pipelines, RahasyaScan unifies multiple i
 
 **_🔍 What RahasyaScan Solves_**
 
- - Modern codebases often suffer from:
+Modern codebases often suffer from:
 
  - Hardcoded API keys & secrets
 
@@ -25,19 +25,19 @@ RahasyaScan addresses this by combining Secrets Detection + Software Composition
 **⚙️ Requirements**
 Local System
 
-Docker ≥ 20.x
+ - Docker ≥ 20.x
 
-Git
+ - Git
 
-Internet access (for tool updates & Snyk)
+ - Internet access (for tool updates & Snyk)
 
 Supported Platforms
 
-Linux
+ - Linux
 
-macOS
+ - macOS
 
-**Windows **(via Docker Desktop)
+ - Windows (via Docker Desktop)
 
 ❗ No language runtime needed on host — everything runs inside Docker.
 
@@ -135,14 +135,14 @@ Once the tool starts, you’ll be prompted to choose scans.
 -include_talisman
 
 🧷 Available Tools
-Flag	Tool
-gitleaks	Git history secret scanning
-gittyleaks	Pattern-based detection
-trufflehog	Entropy detection
-detect-secrets	Yelp secrets detection
-ggshield	GitGuardian scanning
-talisman	Pre-commit style scanning
-snyk	Dependency vulnerability scanning
+ Flag	Tool
+ - gitleaks	Git history secret scanning
+ - gittyleaks	Pattern-based detection
+ - trufflehog	Entropy detection
+ - detect-secrets	Yelp secrets detection
+ - ggshield	GitGuardian scanning
+ - talisman	Pre-commit style scanning
+ - snyk	Dependency vulnerability scanning
 
 🔑 Snyk Authentication Flow
 
